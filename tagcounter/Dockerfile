@@ -4,6 +4,8 @@ FROM python:3.6
 # Adding backend directory to make absolute filepaths consistent across services
 WORKDIR /app/backend
 
+ENV DJANGO_SETTINGS_MODULE=tagcounter.settings
+ENV DJANGO_CONFIGURATION=DevDockerCompose
 # Install Python dependencies
 COPY requirements.txt /app/backend
 RUN pip3 install --upgrade pip -r requirements.txt
