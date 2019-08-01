@@ -84,8 +84,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tagcounter',
         'HOST': 'postgres',
-        'USER': 'django',
-        'PASSWORD': 'djangoPassword',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'PORT': 5432
     }
 }
