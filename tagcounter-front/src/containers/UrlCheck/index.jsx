@@ -23,7 +23,7 @@ const UrlCheck = props => {
               return {x: key, y: data.tags[key]}
             });
             setData(preparedData);
-          });
+          }).catch(error => setValid(false));
       setIsRunning(!isRunning);
     }
   };
@@ -52,7 +52,9 @@ const UrlCheck = props => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ url: stateUrl})
-    });
+    }).then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error));
     setIsRunning(!isRunning);
     }
 
