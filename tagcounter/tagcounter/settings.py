@@ -82,10 +82,9 @@ WSGI_APPLICATION = 'tagcounter.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tagcounter',
+        'NAME': 'postgres',
         'HOST': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
         'PORT': 5432
     }
 }

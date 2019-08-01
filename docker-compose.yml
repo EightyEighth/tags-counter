@@ -4,10 +4,6 @@ services:
   # Postgres
   postgres:
     image: postgres
-    environment:
-      - POSTGRES_USER: "postgres"
-      - POSTGRES_PASSWORD: "postgres"
-      - POSTGRES_DB: "tagcounter"
     ports:
       - "5432:5432"
 
