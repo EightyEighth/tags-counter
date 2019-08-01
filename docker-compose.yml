@@ -1,0 +1,71 @@
+version: "3"
+
+services:
+  # Postgres
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+
+    # Back-end
+  backend:
+    build: ./tagcounter
+    restart: always
+    command: bash -c "./wait-for-it.sh postgres:5432 -- python /app/backend/manage.py migrate --noinput && python /app/backend/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./tagcounter:/app/backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+      - redis
+    links:
+      - postgres
+      - redis
+
+    # Front-end
+  frontend:
+    build: ./tagcounter-front
+    restart: always
+    command: ["npm", "start"]
+    volumes:
+      - ./tagcounter-front:/app/frontend
+      - node-modules:/app/frontend/node_modules
+    ports:
+      - "3000:3000"
+
+    # Redis
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  # Celery worker
+  celery:
+    build: ./tagcounter
+    command: ["./wait-for-it.sh", "redis:6379", "--", "celery", "-A", "tagcounter", "worker", "-l", "info"]
+    restart: always
+    volumes:
+      - ./tagcounter:/app/backend
+    depends_on:
+      - postgres
+      - redis
+    links:
+      - redis
+      - postgres
+
+  celery-beat:
+    build: ./tagcounter
+    command: ["./wait-for-it.sh", "redis:6379", "--", "celery", "-A", "tagcounter", "beat",  "-l",  "info", "--pidfile=/opt/celeryd.pid"]
+    restart: always
+    volumes:
+      - ./tagcounter:/app/backend
+    depends_on:
+      - postgres
+      - redis
+    links:
+      - redis
+      - postgres
+
+volumes:
+  node-modules:
