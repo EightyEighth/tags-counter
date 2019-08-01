@@ -3,7 +3,8 @@ import { Row, Container} from "react-bootstrap";
 
 import UrlForm from '../../components/UrlForm';
 import Chart from "../../components/TagCharts";
-const URL = 'http://localhost:8000/api/v1/webpages/';
+import { WEBPAGES_URL } from "../../consts";
+
 const URL_REGEX = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/;
 
 const UrlCheck = props => {
@@ -45,7 +46,7 @@ const UrlCheck = props => {
       event.stopPropagation();
     }
     event.preventDefault();
-    fetch(URL, {
+    fetch(WEBPAGES_URL, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
