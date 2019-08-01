@@ -13,7 +13,7 @@
     "victory": "^32.3.3"
   },
   "scripts": {
-    "start": "REACT_API_URL='http://localhost:8000/api/v1/webpages/' react-scripts start",
+    "start": "CI=false REACT_APP_API_URL='http://localhost:8000/api/v1/webpages/' react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject"

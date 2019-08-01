@@ -16,7 +16,7 @@ const UrlCheck = props => {
   
   const getUrlData = () => {
     if (stateUrl) {
-      fetch(URL + `?url=${stateUrl}`)
+      fetch(process.env.REACT_APP_API_URL + `?url=${stateUrl}`)
           .then(response => response.json())
           .then(data => {
             const preparedData = Object.keys(data.tags).map((key) => {
@@ -39,13 +39,13 @@ const UrlCheck = props => {
   };
   
   const handleSubmit = event => {
-    const form = event.currentTarget;
-    if (!isValid || !form.checkValidity()) {
+    if (!isValid || !stateUrl) {
       event.preventDefault();
       event.stopPropagation();
-    }
-    event.preventDefault();
-    fetch(process.env.REACT_API_URL, {
+      setValid(!isValid);
+    }else{
+       event.preventDefault();
+    fetch(process.env.REACT_APP_API_URL, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -54,6 +54,8 @@ const UrlCheck = props => {
       body: JSON.stringify({ url: stateUrl})
     });
     setIsRunning(!isRunning);
+    }
+
   };
   
   return (

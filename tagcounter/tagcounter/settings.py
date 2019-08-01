@@ -82,9 +82,10 @@ WSGI_APPLICATION = 'tagcounter.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'HOST': 'postgres',
-        'USER': 'postgres',
+        'NAME': 'tagcounter',
+        'HOST': 'localhost',
+        'USER': 'django',
+        'PASSWORD': 'djangoPassword',
         'PORT': 5432
     }
 }
@@ -131,4 +132,4 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_ALLOW_ALL=True
 
 # For RabbitMQ
-CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_BROKER_URL = 'redis://localhost:6379'
