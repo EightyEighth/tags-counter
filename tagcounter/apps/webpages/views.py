@@ -15,14 +15,16 @@ class WebPageViewSet(viewsets.ViewSet):
         serializer.is_valid(raise_exception=True)
         fetch_url.delay(serializer.data.get('url'))
 
-        return response.Response(status=status.HTTP_201_CREATED)
+        return response.Response({'status': 'ok'},
+                                 status=status.HTTP_201_CREATED)
 
     @cache_response(60*60*2, key_func=calculate_cache_key)
     def retrieve(self, request, *args, **kwargs):
         url = request.query_params.get('url', None)
         web_page = WebPage.objects.get(url=url)
         if not web_page:
-            return response.Response(status=status.HTTP_404_NOT_FOUND)
+            return response.Response({'status': 'not found'},
+                                     status=status.HTTP_404_NOT_FOUND)
         return response.Response(
             data=WebPageSerializer(web_page).data,
             status=status.HTTP_200_OK)
