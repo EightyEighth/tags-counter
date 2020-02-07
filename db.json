@@ -22,6 +22,11 @@
 "row": 0,
 "column": 3,
 "data": "Active"
+},
+  {
+"row": 0,
+"column": 4,
+"data": "Test"
 }
 ],
 "cells": [
