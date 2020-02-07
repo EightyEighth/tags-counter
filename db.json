@@ -108,6 +108,13 @@
 "data": true,
 "is_mutable": true,
 "type": "boolean"
+},
+  {
+"row": 3,
+"column": 4,
+"data": 10,
+"is_mutable": true,
+"type": "number"
 }
 ]
 }
